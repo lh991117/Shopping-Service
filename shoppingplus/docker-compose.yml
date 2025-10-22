@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: sp-mysql
+    ports: ["13306:3306"]
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: shopplus
+      MYSQL_USER: shopplus
+      MYSQL_PASSWORD: shopplus-pass
+    command: ["--character-set-server=utf8mb4","--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7
+    container_name: sp-redis
+    ports: ["6379:6379"]
+    command: ["redis-server","--appendonly","yes"]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mysql_data:
+  redis_data:
